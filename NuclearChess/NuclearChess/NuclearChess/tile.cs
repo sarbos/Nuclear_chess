@@ -40,7 +40,7 @@ namespace NuclearChess
 			this.x = x;
 			this.y = y;
 			black = isblack;
-			//this.GGBitches = g;
+			this.GGBitches = t;
 
         }
 

@@ -53,19 +53,7 @@ namespace NuclearChess
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-			int curx = 50;
-			int cury=50;
-			bool black = false;
-			for (int x = 0; x < 8; x++)
-			{
-				for (int y = 0; y < 8; y++)
-				{
-					grid[x,y] = new tile(new Rectangle(curx, cury, 100, 100), x, y, black,bpixel);
-					black = !black;
-					cury += 100;
-				}
-				curx += 100;
-			}
+
             base.Initialize();
         }
 
@@ -81,6 +69,20 @@ namespace NuclearChess
             pieces = Content.Load<Texture2D>("Chess_symbols");
             bpixel = Content.Load<Texture2D>("BlackPixel");
             // TODO: use this.Content to load your game content here
+
+            int curx = 50;
+            int cury = 50;
+            bool black = false;
+            for (int x = 0; x < 8; x++)
+            {
+                for (int y = 0; y < 8; y++)
+                {
+                    grid[x, y] = new tile(new Rectangle(curx, cury, 100, 100), x, y, black, bpixel);
+                    black = !black;
+                    cury += 100;
+                }
+                curx += 100;
+            }
         }
 
         /// <summary>
