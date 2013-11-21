@@ -34,7 +34,7 @@ namespace NuclearChess
 		//}
         public tile() { }
 
-        public tile(Rectangle r, int x, int y, bool isblack, Texture2D g) 
+        public tile(Rectangle r, int xname, char yname, bool isblack) 
         {
             area = r;
 			this.x = x;
