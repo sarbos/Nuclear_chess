@@ -12,6 +12,7 @@ using Microsoft.Xna.Framework.Media;
 
 namespace NuclearChess
 {
+
     class tile
     {
         
@@ -22,19 +23,24 @@ namespace NuclearChess
         piece piece;
         public Rectangle area;
         public Vector2 center;
+		Texture2D GGBitches;
 
-        tile(int x, int y, bool isBlack, piece p) 
-		{
-			this.x = x;
-			this.y = y;
-			this.black = isBlack;
-			this.piece = p;
-		}
+		//tile(int x, int y, bool isBlack, piece p) 
+		//{
+		//    this.x = x;
+		//    this.y = y;
+		//    this.black = isBlack;
+		//    this.piece = p;
+		//}
         public tile() { }
 
-        public tile(Rectangle r, Vector2 c, int xname, char yname, bool isblack) 
+        public tile(Rectangle r, int x, int y, bool isblack, Texture2D g) 
         {
             area = r;
+			this.x = x;
+			this.y = y;
+			black = isblack;
+			this.GGBitches = g;
 
         }
 
@@ -43,7 +49,9 @@ namespace NuclearChess
         public void Update() { }
 
         public void Draw(SpriteBatch sb) { 
-		sb.Draw(
+			Color c = (black == false) ? Color.White : Color.Black;
+
+			sb.Draw(GGBitches, area, c);
 		}
 
     }

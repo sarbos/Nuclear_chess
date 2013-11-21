@@ -19,8 +19,8 @@ namespace NuclearChess
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
-        Texture2D grid;
-        Texture2D pieces;
+		//Texture2D grid;
+		Texture2D pieces;
         int boardXoffset = 100;
         int boardYoffset = 50;
         Rectangle WKing = new Rectangle(16, 16, 44, 44);
@@ -32,6 +32,7 @@ namespace NuclearChess
 
         piece p = new piece();
 
+		tile[,] grid = new tile[8,8];
 
         public Game1()
         {
@@ -51,7 +52,19 @@ namespace NuclearChess
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-
+			int curx = 50;
+			int cury=50;
+			bool black = false;
+			for (int x = 0; x < 8; x++)
+			{
+				for (int y = 0; y < 8; y++)
+				{
+					grid[x,y] = new tile(new Rectangle(curx, cury, 100, 100), x, y, black,<texturehere>);
+					black = !black;
+					cury += 100;
+				}
+				curx += 100;
+			}
             base.Initialize();
         }
 
@@ -63,7 +76,7 @@ namespace NuclearChess
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            grid = Content.Load<Texture2D>("chessboard");
+           // grid = Content.Load<Texture2D>("chessboard");
             pieces = Content.Load<Texture2D>("Chess_symbols");
             // TODO: use this.Content to load your game content here
         }
@@ -113,7 +126,11 @@ namespace NuclearChess
 			this.IsMouseVisible = true;
             // TODO: Add your drawing code here
             spriteBatch.Begin();
-            spriteBatch.Draw(grid, new Rectangle(boardXoffset, boardYoffset, 800, 800), Color.White);
+			foreach(tile t in grid)
+			{
+				t.Draw(spriteBatch);
+			}
+            //spriteBatch.Draw(grid, new Rectangle(boardXoffset, boardYoffset, 800, 800), Color.White);
             spriteBatch.Draw(pieces, new Rectangle(400, 80, 44, 44), WKing, Color.White);
             spriteBatch.Draw(pieces, new Rectangle(230, 80, WQueen.Width, WQueen.Height), WQueen, Color.White);
             spriteBatch.Draw(pieces, new Rectangle(135, 80, WRook.Width, WRook.Height), WRook, Color.White);
