@@ -34,13 +34,13 @@ namespace NuclearChess
 		//}
         public tile() { }
 
-        public tile(Rectangle r, int xname, char yname, bool isblack) 
+        public tile(Rectangle r, int xname, int yname, bool isblack, Texture2D t) 
         {
             area = r;
 			this.x = x;
 			this.y = y;
 			black = isblack;
-			this.GGBitches = g;
+			//this.GGBitches = g;
 
         }
 

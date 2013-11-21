@@ -21,6 +21,7 @@ namespace NuclearChess
 
 		//Texture2D grid;
 		Texture2D pieces;
+        Texture2D bpixel;
         int boardXoffset = 100;
         int boardYoffset = 50;
         Rectangle WKing = new Rectangle(16, 16, 44, 44);
@@ -59,7 +60,7 @@ namespace NuclearChess
 			{
 				for (int y = 0; y < 8; y++)
 				{
-					grid[x,y] = new tile(new Rectangle(curx, cury, 100, 100), x, y, black,<texturehere>);
+					grid[x,y] = new tile(new Rectangle(curx, cury, 100, 100), x, y, black,bpixel);
 					black = !black;
 					cury += 100;
 				}
@@ -78,6 +79,7 @@ namespace NuclearChess
             spriteBatch = new SpriteBatch(GraphicsDevice);
            // grid = Content.Load<Texture2D>("chessboard");
             pieces = Content.Load<Texture2D>("Chess_symbols");
+            bpixel = Content.Load<Texture2D>("BlackPixel");
             // TODO: use this.Content to load your game content here
         }
 
