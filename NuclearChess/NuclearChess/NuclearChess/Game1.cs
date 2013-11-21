@@ -19,9 +19,21 @@ namespace NuclearChess
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
+        Texture2D grid;
+        Texture2D pieces;
+        Rectangle WKing;
+        Rectangle WQueen;
+        Rectangle WRook;
+        Rectangle WBishop;
+        Rectangle WKnight;
+        Rectangle WPawn;
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
+            graphics.PreferredBackBufferWidth = 1600;
+            graphics.PreferredBackBufferHeight = 900;
+            //graphics.IsFullScreen = true;
             Content.RootDirectory = "Content";
         }
 
@@ -46,7 +58,8 @@ namespace NuclearChess
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-
+            grid = Content.Load<Texture2D>("chessboard");
+            pieces = Content.Load<Texture2D>("Chess_symbols");
             // TODO: use this.Content to load your game content here
         }
 
@@ -81,9 +94,13 @@ namespace NuclearChess
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.White);
 
             // TODO: Add your drawing code here
+            spriteBatch.Begin();
+            spriteBatch.Draw(grid, new Rectangle(100, 50, 800, 800), Color.White);
+            spriteBatch.Draw(pieces, new Rectangle(135, 80, 44, 44), new Rectangle(16,16, 44,44), Color.White);
+            spriteBatch.End();
 
             base.Draw(gameTime);
         }
