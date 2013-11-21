@@ -22,6 +22,7 @@ namespace NuclearChess
 		//Texture2D grid;
 		Texture2D pieces;
         Texture2D bpixel;
+        Texture2D wPixel;
         int boardXoffset = 100;
         int boardYoffset = 50;
         Rectangle WKing = new Rectangle(16, 16, 44, 44);
@@ -68,6 +69,7 @@ namespace NuclearChess
            // grid = Content.Load<Texture2D>("chessboard");
             pieces = Content.Load<Texture2D>("Chess_symbols");
             bpixel = Content.Load<Texture2D>("BlackPixel");
+            wPixel = Content.Load<Texture2D>("WhitePixel");
             // TODO: use this.Content to load your game content here
 
             int curx = 50;
@@ -77,10 +79,15 @@ namespace NuclearChess
             {
                 for (int y = 0; y < 8; y++)
                 {
-                    grid[x, y] = new tile(new Rectangle(curx, cury, 100, 100), x, y, black, bpixel);
+                    Texture2D col;
+                    if (black) { col = bpixel; }
+                    else { col = wPixel; }
+                    grid [ y, x ] = new tile(new Rectangle(curx, cury, 100, 100), x, y, black, col);
                     black = !black;
                     cury += 100;
                 }
+                black = !black;
+                cury = 50;
                 curx += 100;
             }
         }
@@ -126,7 +133,7 @@ namespace NuclearChess
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.White);
+            GraphicsDevice.Clear(Color.CornflowerBlue);
 			this.IsMouseVisible = true;
             // TODO: Add your drawing code here
             spriteBatch.Begin();
