@@ -20,10 +20,16 @@ namespace NuclearChess
         bool black;
         bool fallout;
         piece piece;
-        public int center_x;
-        public int center_y;
+        public Rectangle area;
+        public Vector2 center;
 
-        tile() { }
+        public tile() { }
+
+        public tile(Rectangle r, Vector2 c, int xname, char yname, bool isblack) 
+        {
+            area = r;
+
+        }
 
         public void Initialize() { }
 

@@ -21,7 +21,8 @@ namespace NuclearChess
 
         Texture2D grid;
         Texture2D pieces;
-
+        int boardXoffset = 100;
+        int boardYoffset = 50;
         Rectangle WKing = new Rectangle(16, 16, 44, 44);
         Rectangle WQueen = new Rectangle(75, 13, 45, 40);
         Rectangle WRook = new Rectangle(144,15,33,39);
@@ -102,7 +103,7 @@ namespace NuclearChess
 
             // TODO: Add your drawing code here
             spriteBatch.Begin();
-            spriteBatch.Draw(grid, new Rectangle(100, 50, 800, 800), Color.White);
+            spriteBatch.Draw(grid, new Rectangle(boardXoffset, boardYoffset, 800, 800), Color.White);
             spriteBatch.Draw(pieces, new Rectangle(400, 80, 44, 44), WKing, Color.White);
             spriteBatch.Draw(pieces, new Rectangle(230, 80, WQueen.Width, WQueen.Height), WQueen, Color.White);
             spriteBatch.Draw(pieces, new Rectangle(135, 80, WRook.Width, WRook.Height), WRook, Color.White);

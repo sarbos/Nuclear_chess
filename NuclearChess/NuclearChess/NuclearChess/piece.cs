@@ -36,7 +36,7 @@ namespace NuclearChess
 
         public void Draw(SpriteBatch sb) 
         {
-            sb.Draw(texture, new Rectangle(current.center_x, current.center_y, textureSlice.Width, textureSlice.Height), textureSlice, Color.White);
+            sb.Draw(texture, new Rectangle((int)current.center.X, (int)current.center.Y, textureSlice.Width, textureSlice.Height), textureSlice, Color.White);
         }
     }
 }
