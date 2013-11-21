@@ -87,7 +87,17 @@ namespace NuclearChess
             // Allows the game to exit
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
+			/*Rectangle area = someRectangle;
 
+			// Check if the mouse position is inside the rectangle
+			if (area.Contains(mousePosition))
+			{
+				backgroundTexture = hoverTexture;
+			}
+			else
+			{
+				backgroundTexture = defaultTexture;
+			}*/
             // TODO: Add your update logic here
 
             base.Update(gameTime);
@@ -100,7 +110,7 @@ namespace NuclearChess
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.White);
-
+			this.IsMouseVisible = true;
             // TODO: Add your drawing code here
             spriteBatch.Begin();
             spriteBatch.Draw(grid, new Rectangle(boardXoffset, boardYoffset, 800, 800), Color.White);

@@ -15,7 +15,7 @@ namespace NuclearChess
     class tile
     {
         
-        char x;
+        int x;
         int y;
         bool black;
         bool fallout;
@@ -23,6 +23,13 @@ namespace NuclearChess
         public Rectangle area;
         public Vector2 center;
 
+        tile(int x, int y, bool isBlack, piece p) 
+		{
+			this.x = x;
+			this.y = y;
+			this.black = isBlack;
+			this.piece = p;
+		}
         public tile() { }
 
         public tile(Rectangle r, Vector2 c, int xname, char yname, bool isblack) 
@@ -35,7 +42,9 @@ namespace NuclearChess
 
         public void Update() { }
 
-        public void Draw(SpriteBatch sb) { }
+        public void Draw(SpriteBatch sb) { 
+		sb.Draw(
+		}
 
     }
 }
