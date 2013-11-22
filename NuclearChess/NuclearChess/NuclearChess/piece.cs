@@ -20,14 +20,22 @@ namespace NuclearChess
         Texture2D texture;
         Rectangle textureSlice;
 
-        public piece()
-        {
+        public piece() { }
 
+        public piece(string n, tile st)
+        {
+            name = n;
+            start = st;
+            current = start;
         }
 
-        public piece(string name, tile start, Texture2D tex, Rectangle texSlice)
+        public piece(string n, tile st, Texture2D tex, Rectangle texSlice)
         {
-            
+            name = n;
+            start = st;
+            current = start;
+            texture = tex;
+            textureSlice = texSlice;
         }
 
         public void Initialize() { }
@@ -38,5 +46,6 @@ namespace NuclearChess
         {
             sb.Draw(texture, new Rectangle((int)current.center.X, (int)current.center.Y, textureSlice.Width, textureSlice.Height), textureSlice, Color.White);
         }
+
     }
 }

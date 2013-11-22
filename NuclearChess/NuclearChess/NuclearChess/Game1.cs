@@ -20,11 +20,15 @@ namespace NuclearChess
         SpriteBatch spriteBatch;
 
 		//Texture2D grid;
+        //pieces texture to be slip up
 		Texture2D pieces;
+        //black pixel
         Texture2D bpixel;
+        //white pixel
         Texture2D wPixel;
-        int boardXoffset = 100;
-        int boardYoffset = 50;
+        //radioactive square
+        Texture2D radioactive;
+
         Rectangle WKing = new Rectangle(16, 16, 44, 44);
         Rectangle WQueen = new Rectangle(75, 13, 45, 40);
         Rectangle WRook = new Rectangle(144,15,33,39);
@@ -70,6 +74,7 @@ namespace NuclearChess
             pieces = Content.Load<Texture2D>("Chess_symbols");
             bpixel = Content.Load<Texture2D>("BlackPixel");
             wPixel = Content.Load<Texture2D>("WhitePixel");
+            radioactive = Content.Load<Texture2D>("Radioactive");
             // TODO: use this.Content to load your game content here
 
             int curx = 50;
@@ -82,7 +87,8 @@ namespace NuclearChess
                     Texture2D col;
                     if (black) { col = bpixel; }
                     else { col = wPixel; }
-                    grid [ y, x ] = new tile(new Rectangle(curx, cury, 100, 100), x, y, black, col);
+                    grid [y, x] = new tile(new Rectangle(curx, cury, 100, 100), x, y, black, col);
+                    grid [y, x].Fallout = radioactive;
                     black = !black;
                     cury += 100;
                 }
@@ -123,6 +129,11 @@ namespace NuclearChess
 				backgroundTexture = defaultTexture;
 			}*/
             // TODO: Add your update logic here
+
+            Random r = new Random();
+            int x = r.Next(8);
+            int y = r.Next(8);
+            grid[x, y].fallout = !grid[x, y].fallout;
 
             base.Update(gameTime);
         }

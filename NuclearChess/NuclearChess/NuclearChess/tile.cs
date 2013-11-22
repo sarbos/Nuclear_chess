@@ -19,11 +19,12 @@ namespace NuclearChess
         int x;
         int y;
         bool black;
-        bool fallout;
+        public bool fallout;
         piece piece;
         public Rectangle area;
         public Vector2 center;
-		Texture2D GGBitches;
+		Texture2D color;
+        public Texture2D Fallout;
 
 		//tile(int x, int y, bool isBlack, piece p) 
 		//{
@@ -40,7 +41,8 @@ namespace NuclearChess
 			this.x = x;
 			this.y = y;
 			black = isblack;
-			this.GGBitches = t;
+			this.color = t;
+            fallout = false;
 
         }
 
@@ -49,9 +51,16 @@ namespace NuclearChess
         public void Update() { }
 
         public void Draw(SpriteBatch sb) { 
-			Color c = (black == false) ? Color.White : Color.Black;
-
-			sb.Draw(GGBitches, area, c);
+			//Color c = (black == false) ? Color.White : Color.Black;
+            if (fallout)
+            {
+                sb.Draw(Fallout, area, Color.White);
+            }
+            else 
+            {
+                sb.Draw(color, area, Color.White);
+            }
+			
 		}
 
     }
