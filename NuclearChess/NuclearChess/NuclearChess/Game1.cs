@@ -32,22 +32,22 @@ namespace NuclearChess
         Rectangle WKing = new Rectangle(16, 16, 44, 44);
         Rectangle WQueen = new Rectangle(75, 13, 45, 40);
         Rectangle WRook = new Rectangle(144,15,33,39);
-        Rectangle WBishop;
-        Rectangle WKnight;
+        Rectangle WBishop = new Rectangle(200,14,40,35);
+        Rectangle WKnight = new Rectangle(264,14,38,35);
         Rectangle WPawn = new Rectangle(332,12,28,40);
 
         Rectangle BKing = new Rectangle(16, 74, 44, 44);
         Rectangle BQueen = new Rectangle(75, 74, 45, 40);
         Rectangle BRook = new Rectangle(144, 74, 33, 39);
-        Rectangle BBishop;
-        Rectangle BKnight;
+        Rectangle BBishop = new Rectangle(200,74,40,35);
+        Rectangle BKnight = new Rectangle(264, 74, 38, 35);
         Rectangle BPawn = new Rectangle(332, 74, 28, 40);
 
         piece[] whitepieces = new piece[16];
         piece[] blackpieces = new piece[16];
 
 
-        piece p = new piece();
+        //piece p = new piece();
 
 		tile[,] grid = new tile[8,8];
 
@@ -113,10 +113,30 @@ namespace NuclearChess
             {
                 whitepieces[i] = new piece("Pawn", grid[i,1], pieces, WPawn);
             }
+            whitepieces[8] = new piece("Rook", grid[0,0], pieces, WRook);
+            whitepieces[9] = new piece("Rook", grid[7, 0], pieces, WRook);
+            whitepieces[10] = new piece("Knight", grid[1,0], pieces, WKnight);
+            whitepieces[11] = new piece("Knight", grid[6, 0], pieces, WKnight);
+            whitepieces[12] = new piece("Bishop", grid[2, 0], pieces, WBishop);
+            whitepieces[13] = new piece("Bishop", grid[5, 0], pieces, WBishop);
+            whitepieces[14] = new piece("King", grid[3, 0], pieces, WKing);
+            whitepieces[15] = new piece("Queen", grid[4, 0], pieces, WQueen);
+
+            //initialize black pawns
             for (int i = 0; i < 8; i++)
             {
                 blackpieces[i] = new piece("Pawn", grid[i, 6], pieces, BPawn);
             }
+            blackpieces[8] = new piece("Rook", grid[0, 7], pieces, BRook);
+            blackpieces[9] = new piece("Rook", grid[7, 7], pieces, BRook);
+            blackpieces[10] = new piece("Knight", grid[1, 7], pieces, BKnight);
+            blackpieces[11] = new piece("Knight", grid[6, 7], pieces, BKnight);
+            blackpieces[12] = new piece("Bishop", grid[2, 7], pieces, BBishop);
+            blackpieces[13] = new piece("Bishop", grid[5, 7], pieces, BBishop);
+            blackpieces[14] = new piece("King", grid[3, 7], pieces, BKing);
+            blackpieces[15] = new piece("Queen", grid[4, 7], pieces, BQueen);
+
+
             //p  = new piece("King", grid[2, 1], pieces, WKing);
         }
 
@@ -141,7 +161,7 @@ namespace NuclearChess
                 this.Exit();
             if (Keyboard.GetState().IsKeyDown(Keys.Space)) 
             {
-                p.move(grid[5, 6]);
+                //p.move(grid[5, 6]);
             }
 			/*Rectangle area = someRectangle;
 
@@ -178,6 +198,7 @@ namespace NuclearChess
 			{
 				t.Draw(spriteBatch);
 			}
+
             foreach (piece p in whitepieces) 
             {
                 if (p!=null)
