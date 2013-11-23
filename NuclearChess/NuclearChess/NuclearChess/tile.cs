@@ -25,7 +25,7 @@ namespace NuclearChess
         public Vector2 center;
 		Texture2D color;
         public Texture2D Fallout;
-
+       
 		//tile(int x, int y, bool isBlack, piece p) 
 		//{
 		//    this.x = x;
@@ -43,6 +43,7 @@ namespace NuclearChess
 			black = isblack;
 			this.color = t;
             fallout = false;
+            center = new Vector2(area.X + (area.Width / 2), area.Y + (area.Height / 2));
 
         }
 

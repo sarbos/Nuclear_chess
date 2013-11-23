@@ -38,13 +38,20 @@ namespace NuclearChess
             textureSlice = texSlice;
         }
 
+
+        //moves piece to parameter in tile
+        public void move(tile t)
+        {
+            current = t;
+        }
+
         public void Initialize() { }
 
         public void Update() { }
 
         public void Draw(SpriteBatch sb) 
         {
-            sb.Draw(texture, new Rectangle((int)current.center.X, (int)current.center.Y, textureSlice.Width, textureSlice.Height), textureSlice, Color.White);
+            sb.Draw(texture, new Rectangle((int)current.center.X- this.textureSlice.Width/2, (int)current.center.Y- this.textureSlice.Height/2, textureSlice.Width, textureSlice.Height), textureSlice, Color.White);
         }
 
     }

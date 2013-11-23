@@ -34,7 +34,18 @@ namespace NuclearChess
         Rectangle WRook = new Rectangle(144,15,33,39);
         Rectangle WBishop;
         Rectangle WKnight;
-        Rectangle WPawn;
+        Rectangle WPawn = new Rectangle(332,12,28,40);
+
+        Rectangle BKing = new Rectangle(16, 74, 44, 44);
+        Rectangle BQueen = new Rectangle(75, 74, 45, 40);
+        Rectangle BRook = new Rectangle(144, 74, 33, 39);
+        Rectangle BBishop;
+        Rectangle BKnight;
+        Rectangle BPawn = new Rectangle(332, 74, 28, 40);
+
+        piece[] whitepieces = new piece[16];
+        piece[] blackpieces = new piece[16];
+
 
         piece p = new piece();
 
@@ -87,8 +98,8 @@ namespace NuclearChess
                     Texture2D col;
                     if (black) { col = bpixel; }
                     else { col = wPixel; }
-                    grid [y, x] = new tile(new Rectangle(curx, cury, 100, 100), x, y, black, col);
-                    grid [y, x].Fallout = radioactive;
+                    grid [x, y] = new tile(new Rectangle(curx, cury, 100, 100), x, y, black, col);
+                    grid [x, y].Fallout = radioactive;
                     black = !black;
                     cury += 100;
                 }
@@ -96,6 +107,17 @@ namespace NuclearChess
                 cury = 50;
                 curx += 100;
             }
+
+            //initialize white pawns
+            for (int i = 0; i < 8; i++) 
+            {
+                whitepieces[i] = new piece("Pawn", grid[i,1], pieces, WPawn);
+            }
+            for (int i = 0; i < 8; i++)
+            {
+                blackpieces[i] = new piece("Pawn", grid[i, 6], pieces, BPawn);
+            }
+            //p  = new piece("King", grid[2, 1], pieces, WKing);
         }
 
         /// <summary>
@@ -115,8 +137,12 @@ namespace NuclearChess
         protected override void Update(GameTime gameTime)
         {
             // Allows the game to exit
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
+            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 this.Exit();
+            if (Keyboard.GetState().IsKeyDown(Keys.Space)) 
+            {
+                p.move(grid[5, 6]);
+            }
 			/*Rectangle area = someRectangle;
 
 			// Check if the mouse position is inside the rectangle
@@ -130,12 +156,12 @@ namespace NuclearChess
 			}*/
             // TODO: Add your update logic here
 
-            Random r = new Random();
-            int x = r.Next(8);
-            int y = r.Next(8);
-            grid[x, y].fallout = !grid[x, y].fallout;
+            //Random r = new Random();
+            //int x = r.Next(8);
+            //int y = r.Next(8);
+            //grid[x, y].fallout = !grid[x, y].fallout;
 
-            base.Update(gameTime);
+            //base.Update(gameTime);
         }
 
         /// <summary>
@@ -152,11 +178,21 @@ namespace NuclearChess
 			{
 				t.Draw(spriteBatch);
 			}
+            foreach (piece p in whitepieces) 
+            {
+                if (p!=null)
+                    p.Draw(spriteBatch);
+            }
+            foreach (piece p in blackpieces)
+            {
+                if (p != null)
+                    p.Draw(spriteBatch);
+            }
             //spriteBatch.Draw(grid, new Rectangle(boardXoffset, boardYoffset, 800, 800), Color.White);
-            spriteBatch.Draw(pieces, new Rectangle(400, 80, 44, 44), WKing, Color.White);
-            spriteBatch.Draw(pieces, new Rectangle(230, 80, WQueen.Width, WQueen.Height), WQueen, Color.White);
-            spriteBatch.Draw(pieces, new Rectangle(135, 80, WRook.Width, WRook.Height), WRook, Color.White);
-            spriteBatch.Draw(pieces, new Rectangle(830, 80, WRook.Width, WRook.Height), WRook, Color.White);
+           // spriteBatch.Draw(pieces, new Rectangle(400, 80, 44, 44), WKing, Color.White);
+          //  spriteBatch.Draw(pieces, new Rectangle(230, 80, WQueen.Width, WQueen.Height), WQueen, Color.White);
+          //  spriteBatch.Draw(pieces, new Rectangle(135, 80, WRook.Width, WRook.Height), WRook, Color.White);
+          //  spriteBatch.Draw(pieces, new Rectangle(830, 80, WRook.Width, WRook.Height), WRook, Color.White);
 
             spriteBatch.End();
 
