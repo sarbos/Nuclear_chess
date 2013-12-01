@@ -29,9 +29,11 @@ namespace NuclearChess
         //radioactive square
         Texture2D radioactive;
 
+        //used for rectangle rendering
         Texture2D pixel;
-
+        //currently selected tile, 8,8 is essentially null
         Point selectedTile = new Point(8,8);
+        //location of selected piece, 8,8 is essentially null
         Point selectedPiece = new Point(8,8);
 
         Rectangle WKing = new Rectangle(16, 16, 44, 44);
@@ -255,7 +257,9 @@ namespace NuclearChess
                                             rectangleToDraw.Width,
                                             thicknessOfBorder), borderColor);
         }
+
         MouseState prevm;
+        //used to select and deselect tiles as well as perform moves.
         private void updateMouse() 
         {
             MouseState m = Mouse.GetState();
