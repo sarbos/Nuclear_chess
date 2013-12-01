@@ -270,6 +270,7 @@ namespace NuclearChess
 
             if (m.LeftButton == ButtonState.Pressed && prevm.LeftButton == ButtonState.Released) 
             {
+                //outside of the bounds of the board
                 if (x < grid[0, 0].area.Left || x > grid[7, 0].area.Right || y < grid[0, 0].area.Top || y > grid[0, 7].area.Bottom)
                 {
                     selectedTile.X = 8;
@@ -279,18 +280,19 @@ namespace NuclearChess
                 }
                 else
                 {
+                    //set the selected tile using some handy-dandy math
                     selectedTile.X = ((x - grid[0, 0].area.Left) - (x - grid[0, 0].area.Left) % 100) / 100;
                     selectedTile.Y = ((y - grid[0, 0].area.Top) - (y - grid[0, 0].area.Top) % 100) / 100;
 
-                    //piece in selected tile, and selected piece is null
-                    if (grid[selectedTile.X, selectedTile.Y].piece != null) 
+                    //piece in selected tile, and no selected piece select the new piece
+                    if (grid[selectedTile.X, selectedTile.Y].piece != null && selectedPiece.X == 8) 
                     {
                         selectedPiece.X = selectedTile.X;
                         selectedPiece.Y = selectedTile.Y;
                     }
 
                     //no piece in the tile and selected piece is not null, move piece, deselect piece and tile
-                    else if (grid[selectedTile.X, selectedTile.Y].piece == null && selectedPiece.X != 8) 
+                    else if (selectedPiece.X != 8) 
                     {
                         grid[selectedPiece.X, selectedPiece.Y].piece.move(grid[selectedTile.X,selectedTile.Y]);
                         selectedPiece.X = 8;
@@ -298,6 +300,7 @@ namespace NuclearChess
                         selectedTile.X = 8;
                         selectedTile.Y = 8;
                     }
+
                 }
             }
             prevm = m;

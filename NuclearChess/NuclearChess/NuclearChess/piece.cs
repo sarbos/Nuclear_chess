@@ -44,8 +44,21 @@ namespace NuclearChess
         public void move(tile t)
         {
             current.piece = null;
+            if (t.piece != null)
+            {
+                takePiece(t);
+                return;
+            }
             current = t;
             t.piece = this;
+        }
+
+        public void takePiece(tile t) 
+        {
+            t.piece.current = null;
+            t.piece = null;
+            t.fallout = true;
+            this.current = null;
         }
 
         public void Initialize() { }
@@ -54,7 +67,8 @@ namespace NuclearChess
 
         public void Draw(SpriteBatch sb) 
         {
-            sb.Draw(texture, new Rectangle((int)current.center.X- this.textureSlice.Width/2, (int)current.center.Y- this.textureSlice.Height/2, textureSlice.Width, textureSlice.Height), textureSlice, Color.White);
+            if (current != null)
+                sb.Draw(texture, new Rectangle((int)current.center.X- this.textureSlice.Width/2, (int)current.center.Y- this.textureSlice.Height/2, textureSlice.Width, textureSlice.Height), textureSlice, Color.White);
         }
 
     }
