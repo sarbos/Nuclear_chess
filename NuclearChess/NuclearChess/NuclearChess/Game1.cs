@@ -29,6 +29,10 @@ namespace NuclearChess
         //radioactive square
         Texture2D radioactive;
 
+        Texture2D pixel;
+
+        Point selectedTile = new Point(8,8);
+
         Rectangle WKing = new Rectangle(16, 16, 44, 44);
         Rectangle WQueen = new Rectangle(75, 13, 45, 40);
         Rectangle WRook = new Rectangle(144,15,33,39);
@@ -69,7 +73,7 @@ namespace NuclearChess
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-
+            IsMouseVisible = true;
             base.Initialize();
         }
 
@@ -87,6 +91,9 @@ namespace NuclearChess
             wPixel = Content.Load<Texture2D>("WhitePixel");
             radioactive = Content.Load<Texture2D>("Radioactive");
             // TODO: use this.Content to load your game content here
+
+            pixel = new Texture2D(graphics.GraphicsDevice, 1, 1, false, SurfaceFormat.Color);
+            pixel.SetData(new[] { Color.White }); 
 
             int curx = 50;
             int cury = 50;
@@ -163,6 +170,7 @@ namespace NuclearChess
             {
                 //p.move(grid[5, 6]);
             }
+            updateMouse();
 			/*Rectangle area = someRectangle;
 
 			// Check if the mouse position is inside the rectangle
@@ -209,15 +217,66 @@ namespace NuclearChess
                 if (p != null)
                     p.Draw(spriteBatch);
             }
-            //spriteBatch.Draw(grid, new Rectangle(boardXoffset, boardYoffset, 800, 800), Color.White);
-           // spriteBatch.Draw(pieces, new Rectangle(400, 80, 44, 44), WKing, Color.White);
-          //  spriteBatch.Draw(pieces, new Rectangle(230, 80, WQueen.Width, WQueen.Height), WQueen, Color.White);
-          //  spriteBatch.Draw(pieces, new Rectangle(135, 80, WRook.Width, WRook.Height), WRook, Color.White);
-          //  spriteBatch.Draw(pieces, new Rectangle(830, 80, WRook.Width, WRook.Height), WRook, Color.White);
+            if (selectedTile.X < 8 && selectedTile.Y < 8)
+            {
+                DrawBorder(grid[selectedTile.X,selectedTile.Y].area, 4, Color.YellowGreen);
+            }
 
             spriteBatch.End();
 
             base.Draw(gameTime);
+        }
+
+        /// <summary>
+        /// Will draw a border (hollow rectangle) of the given 'thicknessOfBorder' (in pixels)
+        /// of the specified color.
+        ///
+        /// By Sean Colombo, from http://bluelinegamestudios.com/blog
+        /// </summary>
+        /// <param name="rectangleToDraw"></param>
+        /// <param name="thicknessOfBorder"></param>
+        private void DrawBorder(Rectangle rectangleToDraw, int thicknessOfBorder, Color borderColor)
+        {
+            // Draw top line
+            spriteBatch.Draw(pixel, new Rectangle(rectangleToDraw.X, rectangleToDraw.Y, rectangleToDraw.Width, thicknessOfBorder), borderColor);
+
+            // Draw left line
+            spriteBatch.Draw(pixel, new Rectangle(rectangleToDraw.X, rectangleToDraw.Y, thicknessOfBorder, rectangleToDraw.Height), borderColor);
+
+            // Draw right line
+            spriteBatch.Draw(pixel, new Rectangle((rectangleToDraw.X + rectangleToDraw.Width - thicknessOfBorder),
+                                            rectangleToDraw.Y,
+                                            thicknessOfBorder,
+                                            rectangleToDraw.Height), borderColor);
+            // Draw bottom line
+            spriteBatch.Draw(pixel, new Rectangle(rectangleToDraw.X,
+                                            rectangleToDraw.Y + rectangleToDraw.Height - thicknessOfBorder,
+                                            rectangleToDraw.Width,
+                                            thicknessOfBorder), borderColor);
+        }
+
+        private void updateMouse() 
+        {
+            MouseState m = Mouse.GetState();
+
+            //check mouse location
+            int x = m.X;
+            int y = m.Y;
+
+            if (m.LeftButton == ButtonState.Pressed) 
+            {
+                if (x < grid[0, 0].area.Left || x > grid[7, 0].area.Right || y < grid[0, 0].area.Top || y > grid[0, 7].area.Bottom)
+                {
+                    selectedTile.X = 8;
+                    selectedTile.Y = 8;
+                }
+                else
+                {
+                    selectedTile.X = ((x - grid[0, 0].area.Left) - (x - grid[0, 0].area.Left) % 100) / 100;
+                    selectedTile.Y = ((y - grid[0, 0].area.Top) - (y - grid[0, 0].area.Top) % 100) / 100;
+                }
+            }
+
         }
     }
 }
