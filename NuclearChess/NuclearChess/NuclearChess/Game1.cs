@@ -32,6 +32,7 @@ namespace NuclearChess
         Texture2D pixel;
 
         Point selectedTile = new Point(8,8);
+        Point selectedPiece = new Point(8,8);
 
         Rectangle WKing = new Rectangle(16, 16, 44, 44);
         Rectangle WQueen = new Rectangle(75, 13, 45, 40);
@@ -199,7 +200,7 @@ namespace NuclearChess
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
-			this.IsMouseVisible = true;
+		
             // TODO: Add your drawing code here
             spriteBatch.Begin();
 			foreach(tile t in grid)
@@ -254,7 +255,7 @@ namespace NuclearChess
                                             rectangleToDraw.Width,
                                             thicknessOfBorder), borderColor);
         }
-
+        MouseState prevm;
         private void updateMouse() 
         {
             MouseState m = Mouse.GetState();
@@ -263,19 +264,39 @@ namespace NuclearChess
             int x = m.X;
             int y = m.Y;
 
-            if (m.LeftButton == ButtonState.Pressed) 
+            if (m.LeftButton == ButtonState.Pressed && prevm.LeftButton == ButtonState.Released) 
             {
                 if (x < grid[0, 0].area.Left || x > grid[7, 0].area.Right || y < grid[0, 0].area.Top || y > grid[0, 7].area.Bottom)
                 {
                     selectedTile.X = 8;
                     selectedTile.Y = 8;
+                    selectedPiece.X = 8;
+                    selectedPiece.Y = 8;
                 }
                 else
                 {
                     selectedTile.X = ((x - grid[0, 0].area.Left) - (x - grid[0, 0].area.Left) % 100) / 100;
                     selectedTile.Y = ((y - grid[0, 0].area.Top) - (y - grid[0, 0].area.Top) % 100) / 100;
+
+                    //piece in selected tile, and selected piece is null
+                    if (grid[selectedTile.X, selectedTile.Y].piece != null) 
+                    {
+                        selectedPiece.X = selectedTile.X;
+                        selectedPiece.Y = selectedTile.Y;
+                    }
+
+                    //no piece in the tile and selected piece is not null, move piece, deselect piece and tile
+                    else if (grid[selectedTile.X, selectedTile.Y].piece == null && selectedPiece.X != 8) 
+                    {
+                        grid[selectedPiece.X, selectedPiece.Y].piece.move(grid[selectedTile.X,selectedTile.Y]);
+                        selectedPiece.X = 8;
+                        selectedPiece.Y = 8;
+                        selectedTile.X = 8;
+                        selectedTile.Y = 8;
+                    }
                 }
             }
+            prevm = m;
 
         }
     }

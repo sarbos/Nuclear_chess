@@ -34,6 +34,7 @@ namespace NuclearChess
             name = n;
             start = st;
             current = start;
+            current.piece = this;
             texture = tex;
             textureSlice = texSlice;
         }
@@ -42,7 +43,9 @@ namespace NuclearChess
         //moves piece to parameter in tile
         public void move(tile t)
         {
+            current.piece = null;
             current = t;
+            t.piece = this;
         }
 
         public void Initialize() { }

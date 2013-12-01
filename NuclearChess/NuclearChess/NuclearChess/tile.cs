@@ -20,7 +20,7 @@ namespace NuclearChess
         int y;
         bool black;
         public bool fallout;
-        piece piece;
+        public piece piece;
         public Rectangle area;
         public Vector2 center;
 		Texture2D color;
@@ -38,8 +38,8 @@ namespace NuclearChess
         public tile(Rectangle r, int xname, int yname, bool isblack, Texture2D t) 
         {
             area = r;
-			this.x = x;
-			this.y = y;
+			this.x = xname;
+			this.y = yname;
 			black = isblack;
 			this.color = t;
             fallout = false;
