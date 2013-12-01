@@ -14,6 +14,7 @@ namespace NuclearChess
 {
     class piece
     {
+        public static tile[,] grid;
         string name;
         tile start;
         tile current;
@@ -39,7 +40,6 @@ namespace NuclearChess
             textureSlice = texSlice;
         }
 
-
         //moves piece to parameter in tile
         public void move(tile t)
         {
@@ -55,10 +55,79 @@ namespace NuclearChess
 
         public void takePiece(tile t) 
         {
+            //take piece and set fallout
             t.piece.current = null;
             t.piece = null;
             t.fallout = true;
             this.current = null;
+
+            //remove 1 sq radius
+            if (t.x < 7)
+            {
+                if (grid[t.x+1, t.y].piece != null)
+                {
+                    grid[t.x+1, t.y].piece.current = null;
+                    grid[t.x+1, t.y].piece = null;
+                }
+                if (t.y < 7) 
+                {
+                    if (grid[t.x + 1, t.y+1].piece != null)
+                    {
+                        grid[t.x + 1, t.y+1].piece.current = null;
+                        grid[t.x + 1, t.y+1].piece = null;
+                    }
+                }
+            }
+            if (t.x > 0) 
+            {
+                if (grid[t.x-1, t.y].piece != null)
+                {
+                    grid[t.x-1, t.y].piece.current = null;
+                    grid[t.x-1, t.y].piece = null;
+                }
+                if (t.y > 0)
+                {
+                    if (grid[t.x - 1, t.y-1].piece != null)
+                    {
+                        grid[t.x - 1, t.y-1].piece.current = null;
+                        grid[t.x - 1, t.y-1].piece = null;
+                    }
+                }
+            }
+
+            if (t.y > 0) 
+            {
+                if (grid[t.x, t.y-1].piece != null)
+                {
+                    grid[t.x, t.y-1].piece.current = null;
+                    grid[t.x, t.y-1].piece = null;
+                }
+                if (t.x < 7)
+                {
+                    if (grid[t.x + 1, t.y-1].piece != null)
+                    {
+                        grid[t.x + 1, t.y-1].piece.current = null;
+                        grid[t.x + 1, t.y-1].piece = null;
+                    }
+                }
+            }
+            if (t.y < 7) 
+            {
+                if (grid[t.x, t.y+1].piece != null)
+                {
+                    grid[t.x, t.y+1].piece.current = null;
+                    grid[t.x, t.y+1].piece = null;
+                }
+                if (t.x >0)
+                {
+                    if (grid[t.x - 1, t.y+1].piece != null)
+                    {
+                        grid[t.x - 1, t.y+1].piece.current = null;
+                        grid[t.x - 1, t.y+1].piece = null;
+                    }
+                }
+            }
+            
         }
 
         public void Initialize() { }

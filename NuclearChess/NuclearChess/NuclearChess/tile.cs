@@ -16,8 +16,8 @@ namespace NuclearChess
     class tile
     {
         
-        int x;
-        int y;
+        public int x;
+        public int y;
         bool black;
         public bool fallout;
         public piece piece;

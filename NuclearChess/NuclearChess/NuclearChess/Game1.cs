@@ -50,14 +50,12 @@ namespace NuclearChess
         Rectangle BKnight = new Rectangle(264, 74, 38, 35);
         Rectangle BPawn = new Rectangle(332, 74, 28, 40);
 
+
+        tile[,] grid = new tile[8, 8];
+
         piece[] whitepieces = new piece[16];
         piece[] blackpieces = new piece[16];
-
-
-        //piece p = new piece();
-
-		tile[,] grid = new tile[8,8];
-
+   
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -78,6 +76,7 @@ namespace NuclearChess
             // TODO: Add your initialization logic here
             IsMouseVisible = true;
             base.Initialize();
+            piece.grid = grid;
         }
 
         /// <summary>
@@ -123,9 +122,9 @@ namespace NuclearChess
             {
                 whitepieces[i] = new piece("Pawn", grid[i,1], pieces, WPawn);
             }
-            whitepieces[8] = new piece("Rook", grid[0,0], pieces, WRook);
+            whitepieces[8] = new piece("Rook", grid[0, 0], pieces, WRook);
             whitepieces[9] = new piece("Rook", grid[7, 0], pieces, WRook);
-            whitepieces[10] = new piece("Knight", grid[1,0], pieces, WKnight);
+            whitepieces[10] = new piece("Knight", grid[1, 0], pieces, WKnight);
             whitepieces[11] = new piece("Knight", grid[6, 0], pieces, WKnight);
             whitepieces[12] = new piece("Bishop", grid[2, 0], pieces, WBishop);
             whitepieces[13] = new piece("Bishop", grid[5, 0], pieces, WBishop);
